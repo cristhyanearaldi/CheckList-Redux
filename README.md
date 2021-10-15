@@ -100,7 +100,7 @@ export default rootReducer;
 ```
 
 ***10.** Na pasta actions:*
-- [ ] criar os actionTypes, por exemplo: `const MY_CASE_ACTION_X = 'MY_CASE_ACTION_X';`
+- [ ] criar os actionTypes, por exemplo: `export const MY_CASE_ACTION_X = 'MY_CASE_ACTION_X';`
 - [ ] criar os actions creators necessários
 ```
 export const myActionFunction = (myKey1, myKey2) => ({

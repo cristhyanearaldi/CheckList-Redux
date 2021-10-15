@@ -1,6 +1,4 @@
-
 # Checklist do react-redux
-
 
 ***1.** Antes de começar*
 - [ ] pensar como será o *formato* do seu estado global
@@ -36,15 +34,31 @@ No arquivo *App.js*:
 - [ ] definir o Provider, `<Provider store={ store }>`, para fornecer os estados à todos os componentes encapsulados em `<App />`. `import { Provider } from  'react-redux'` (caso possua testes, isso deverá ser feito em index.js);
 
 ***8.** No arquivo store/index.js:*
-- [ ] Importar o rootReducer e criar a store
-- [ ] Se precisar instalar o Redux DevTools: `npm install --save redux-devtools-extension` 
-- [ ] Configurar o [Redux DevTools](https://github.com/reduxjs/redux-devtools)
+- [ ] importar o rootReducer e criar a store
+- [ ] se precisar instalar o Redux DevTools: `npm install --save redux-devtools-extension` 
+- [ ] configurar o [Redux DevTools](https://github.com/reduxjs/redux-devtools)
 ```
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from  '../reducer';
 
 const store = createStore(rootReducer, composeWithDevTools());
+export default store;
+```
+**Para actions assíncronas, usar redux-thunk (npm i redux-thunk)**
+```
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import rootReducer from '../reducers';
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(thunk),
+  ),
+);
+
 export default store;
 ```
 ***9.** Na pasta reducers:*
@@ -97,7 +111,7 @@ export const myActionFunction = (myKey1, myKey2) => ({
 });
 ```
 ***11.** Nos componentes:*
-- [ ] Import no component:
+- [ ] import no component:
 ```
 import { connect } from 'react-redux';
 import { myActionFunction as myActionFunctionAction } from '../action';
@@ -120,7 +134,5 @@ const mapDispatchToProps = (dispatch) => ({
 ```
 export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
 ```
-##
-obs.: para actions assíncronas usar redux-thunk (npm i redux-thunk)
 ##
 *Texto adaptado de Tiago Sathler e Diego Campos* 

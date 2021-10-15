@@ -8,6 +8,7 @@
 - [ ] npx create-react-app my-app-redux;
 - [ ] npm install --save redux react-redux;
 - [ ] npm install.
+
  **Se a sua aplicação não terá outras páginas, não é necessário configurar as rotas. Caso contrário:**
 - [ ]  npm install react-router-dom;
 Em *src/index.js*: 

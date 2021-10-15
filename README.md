@@ -1,4 +1,6 @@
+
 # Checklist do react-redux
+
 
 ***1.** Antes de começar*
 - [ ] pensar como será o *formato* do seu estado global
@@ -31,7 +33,7 @@ No arquivo *App.js*:
 - [ ] arquivo index.js.
 
 ***7.** No arquivo App.js:*
-- [ ] definir o Provider, `<Provider store={ store }>`, para fornecer os estados à todos os componentes encapsulados em `<App />`. `import { Provider } from  'react-redux'`;
+- [ ] definir o Provider, `<Provider store={ store }>`, para fornecer os estados à todos os componentes encapsulados em `<App />`. `import { Provider } from  'react-redux'` (caso possua testes, isso deverá ser feito em index.js);
 
 ***8.** No arquivo store/index.js:*
 - [ ] Importar o rootReducer e criar a store
@@ -83,10 +85,9 @@ export default rootReducer;
 ```
 
 ***10.** Na pasta actions:*
-- [ ] criar os actionTypes, por exemplo: `const ADD_TO_CART = 'ADD_TO_CART';`
+- [ ] criar os actionTypes, por exemplo: `const MY_CASE_ACTION_X = 'MY_CASE_ACTION_X';`
 - [ ] criar os actions creators necessários
 ```
-const MY_CASE_ACTION_X = 'MY_CASE_ACTION_X';
 export const myActionFunction = (myKey1, myKey2) => ({
 	type: MY_CASE_ACTION_X,
 	payload: {
@@ -99,7 +100,7 @@ export const myActionFunction = (myKey1, myKey2) => ({
 - [ ] Import no component:
 ```
 import { connect } from 'react-redux';
-import { myActionFunction as callbackAction } from '../action';
+import { myActionFunction as myActionFunctionAction } from '../action';
 ```
 - [ ] criar a função mapStateToProps
 ```
@@ -112,10 +113,14 @@ const  mapStateToProps  = (state) => ({
 - [ ] criar a função mapDispatchToProps
 ```
 const mapDispatchToProps = (dispatch) => ({
-	myActionFunction: (myKey1, myKey2) => dispatch(callbackAction(myKey1, myKey2)),
+	myActionFunction: (myKey1, myKey2) => dispatch(myActionFunctionAction(myKey1, myKey2)),
 });
 ```
 - [ ] fazer o connect
 ```
 export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
 ```
+##
+obs.: para actions assíncronas usar redux-thunk (npm i redux-thunk)
+##
+*Texto adaptado de Tiago Sathler e Diego Campos* 

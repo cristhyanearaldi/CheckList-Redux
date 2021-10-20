@@ -73,9 +73,9 @@ const  INITIAL_STATE = {
 // myKey2: someValueFromData,
 // ....
 };
-const  myReducer = (state = INITIAL_STATE, action) => {
+const  nomeDoReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
-	case MY_CASE_ACTION_X:
+	case NOME_DO_EVENTO:
 		return {
 			...state,
 			myKey1: action.payload.myKey1,
@@ -85,15 +85,17 @@ const  myReducer = (state = INITIAL_STATE, action) => {
 		return state;
 	}
 };
-export default myReducer;
+export default nomeDoReducer;
 ```
 - [ ] configurar os exports do arquivo index.js
 ```
 import { combineReducers } from  'redux';
-import myReducer from  './myReducer';
+import primeiroReducer from './primeiroReducer';
+import segundoReducer from './segundoReducer';
 
 const  rootReducer  =  combineReducers({
-	mySemanticKey: myReducer,
+	primeiroReducer,
+	segundoReducer,
 });
 
 export default rootReducer;
@@ -103,13 +105,29 @@ export default rootReducer;
 - [ ] criar os actionTypes, por exemplo: `export const MY_CASE_ACTION_X = 'MY_CASE_ACTION_X';`
 - [ ] criar os actions creators necessários
 ```
-export const myActionFunction = (myKey1, myKey2) => ({
-	type: MY_CASE_ACTION_X,
+export const nomaDaAction = (myKey1, myKey2) => ({
+	type: NOME_DO_EVENTO,
 	payload: {
 		myKey1,
 		myKey2,
 	},
 });
+```
+com Thunk
+```
+export const nomeDaAction(success ou error) = (/* resultado da requisição(payload) */) => ({
+	type: NOME_DO_EVENTO,
+	payload: /* resultado da requisição */,
+});
+
+export const nomeDaActionThunk = () => async (dispatch) => {
+	try {
+		const response = await fetchAPI()
+		dispatch(nomeDaActionSuccess(payload));
+	} catch (error) {
+		dispatch(nomeDaActionError(error));
+	}
+};
 ```
 ***11.** Nos componentes:*
 - [ ] import no component:
@@ -120,15 +138,13 @@ import { myActionFunction as myActionFunctionAction } from '../action';
 - [ ] criar a função mapStateToProps
 ```
 const  mapStateToProps  = (state) => ({
-	myKey1: state.mySemanticKey.myKey1,
-	myKey2: state.mySemanticKey.myKey2,
-// ...
+	myKey1(nomeDaProp): state.nomeDoReducer.myKey1,
 });
 ```
 - [ ] criar a função mapDispatchToProps
 ```
 const mapDispatchToProps = (dispatch) => ({
-	myActionFunction: (myKey1, myKey2) => dispatch(myActionFunctionAction(myKey1, myKey2)),
+	nomeDaProp: (chaveASerDespachada, ex: myKey1, myKey2) => dispatch(nomeDaAction(chaveASerDespachada, ex: myKey1, myKey2)),
 });
 ```
 - [ ] fazer o connect
@@ -136,4 +152,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);
 ```
 ##
-*Texto adaptado de Tiago Sathler e Diego Campos* 
+*Texto adaptado de Tiago Sathler, Diego Campos e Moisés Santana* 
